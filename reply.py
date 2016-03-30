@@ -4,79 +4,86 @@ import socket
 import struct
 import random
 
-client = discord.Client()
 address = 'localhost'
 port = 25565
 key = 'password'
 email = 'canttouchthis@nahnahnah.nah'
 password = 'canttouchthis'
 
-@client.event
-async def on_message(message):
-    # we do not want the bot to reply to itself
-    if message.author == client.user:
-        return
+class Bot(discord.Client):
+    def __init__(self):
+        super().__init__()
+        self.starter = None
+        self.player = None
+        self.current = None
 
-    words = message.content.split(' ')
+    async def on_message(self, message):
+        # we do not want the bot to reply to itself
+        if message.author == self.user:
+            return
 
-    if message.channel.is_private == 0:
-        if message.channel.name == "asay":
-            ping_message = bytes("asay={0}&admin={1}&key={2}".format(message.content, message.author.name, key), "utf-8")
-            ping_server(ping_message)
-    if words[0][0] == "!":
-        if message.content.startswith('!ooc'):
-            if message.channel.name == "admin":
-                await client.send_message(message.channel, "TODO")
-            else:
-                msg = ('This command may only be used on the admin channel. You are on ' + message.channel.name).format(message)
-            await client.send_message(message.channel, msg)
-            return
-        if message.content.startswith('!adminwho'):
-            ping_count = ping_server(b"adminwho")
-            if ping_count == -1:
-                await client.send_message(message.channel, 'Failed to ping the server.')
+        words = message.content.split(' ')
+
+        if message.channel.is_private == 0:
+            if message.channel.name == "asay":
+                ping_message = bytes("asay={0}&admin={1}&key={2}".format(message.content, message.author.name, key), "utf-8")
+                ping_server(ping_message)
+        if words[0][0] == "!":
+            if message.content.startswith('!ooc'):
+                msg = 'Sucessfully sent OOC message.'
+                
+                if is_admin_channel(message.channel) == 1:
+                    ping_message = bytes("ooc={0}&admin={1}&key={2}".format(' '.join(words[1:]), message.author.name, key), "utf-8")
+                    ping_server(ping_message)
+                else:
+                    msg = ('This command may only be used on the admin channel. You are on ' + message.channel.name).format(message)
+                await self.send_message(message.channel, msg)
                 return
-            await client.send_message(message.channel, ping_count)
-            return
-        if message.content.startswith('!who'):
-            msg = 'Feature not done yet.'.format(message)
-            await client.send_message(message.channel, msg)
-            return
-        if message.content.startswith('!ping'):
-            ping_count = ping_server(b"ping")
-            if ping_count == -1:
-                await client.send_message(message.channel, 'Failed to ping the server.')
+            if message.content.startswith('!adminwho'):
+                ping_count = ping_server(b"adminwho")
+                if ping_count == -1:
+                    await self.send_message(message.channel, 'Failed to ping the server.')
+                    return
+                await self.send_message(message.channel, ping_count)
                 return
-            await client.send_message(message.channel, "Pong! Theres " + str(ping_count-1) + " players online!")
-            return
-        if message.content.startswith('!admincheck'):
-            if message.channel.name == "admin":
-                msg = 'You are on the admin channel.'.format(message)
-            else:
-                msg = ('You are not on the admin channel. You are on ' + message.channel.name).format(message)
-            await client.send_message(message.channel, msg)
-            return
-        if message.content.startswith('!fox'):
-            line = random.choice(open('config/foxes.txt', 'r').readlines())
-            await client.send_message(message.channel, line)
-            return
-        if message.content.startswith('!help'):
-            msg = 'Available commands:'
-            msg += "\n    !adminwho - Displays current admins in-game"
-            msg += "\n    !ping - Displays a nice message."
-            msg += "\nAdmin Commands(Must be used in the admin channel. Ill setup a better system later <-- Oisin.):"
-            msg += "\n    !ooc - Sends a OOC message."
-            msg += "\nSending a message in the #asay channel will broadcast it in-game"
-            msg = msg.format(message)
-            await client.send_message(message.channel, msg)
-            return
-        await client.send_message(message.channel, "I did not recognize that command. Try using !help to see the available commands.")
-@client.event
-async def on_ready():
-    print('Logged in as')
-    print(client.user.name)
-    print(client.user.id)
-    print('------')
+            if message.content.startswith('!who'):
+                msg = 'Feature not done yet.'.format(message)
+                await self.send_message(message.channel, msg)
+                return
+            if message.content.startswith('!ping'):
+                ping_count = ping_server(b"ping")
+                if ping_count == -1:
+                    await self.send_message(message.channel, 'Failed to ping the server.')
+                    return
+                await self.send_message(message.channel, "Sighs! Theres " + str(ping_count-1) + " players online!")
+                return
+            if message.content.startswith('!admincheck'):
+                if is_admin_channel(message.channel) == 1:
+                    msg = 'You are on the admin channel.'.format(message)
+                else:
+                    msg = ('You are not on the admin channel. You are on ' + message.channel.name).format(message)
+                await self.send_message(message.channel, msg)
+                return
+            if message.content.startswith('!fox'):
+                line = random.choice(open('config/foxes.txt', 'r').readlines())
+                await self.send_message(message.channel, line)
+                return
+            if message.content.startswith('!help'):
+                msg = 'Available commands:'
+                msg += "\n    !adminwho - Displays current admins in-game"
+                msg += "\n    !ping - Displays a nice message."
+                msg += "\nAdmin Commands(Must be used in the admin channel. Ill setup a better system later <-- Oisin.):"
+                msg += "\n    !ooc - Sends a OOC message."
+                msg += "\nSending a message in the #asay channel will broadcast it in-game"
+                msg = msg.format(message)
+                await self.send_message(message.channel, msg)
+                return
+            await self.send_message(message.channel, "I did not recognize that command. Try using !help to see the available commands.")
+    async def on_ready(self):
+        print('Logged in as')
+        print(self.user.name)
+        print(self.user.id)
+        print('------')
 
 def decode_packet(packet):
     print(str(packet))
@@ -149,4 +156,11 @@ def ping_server(question):
     except socket.error:
         return None
 
-client.run(email, password)
+def is_admin_channel(channel):
+    if channel.is_private == 0:
+        if channel.name == "admin" or channel.name == "important-admin":
+            return 1
+    return 0
+        
+bot = Bot()
+bot.run(email, password)
