@@ -407,6 +407,7 @@ class VoiceClient:
             cmd = cmd + ' ' + options
 
         cmd += ' pipe:1'
+        print(cmd)
 
         stdin = None if not pipe else filename
         args = shlex.split(cmd)

@@ -3,12 +3,16 @@ from discord.ext import commands
 import socket
 import struct
 import random
+from audio import AudioManager
 
 address = 'localhost'
 port = 25565
 key = 'password'
-email = 'canttouchthis@nahnahnah.nah'
-password = 'canttouchthis'
+email = 'codybrogamer@gmail.com'
+password = 'Djhalipad123'
+
+if not discord.opus.is_loaded():
+    discord.opus.load_opus('opus.dll')
 
 class Bot(discord.Client):
     def __init__(self):
@@ -16,6 +20,7 @@ class Bot(discord.Client):
         self.starter = None
         self.player = None
         self.current = None
+        self.audio = AudioManager(self, 'test name')
 
     async def on_message(self, message):
         # we do not want the bot to reply to itself
@@ -68,12 +73,36 @@ class Bot(discord.Client):
                 line = random.choice(open('config/foxes.txt', 'r').readlines())
                 await self.send_message(message.channel, line)
                 return
+            if message.content.startswith('!hardy'):
+                line = random.choice(open('config/hardy.txt', 'r').readlines())
+                await self.send_message(message.channel, line)
+                return
+            if message.content.startswith('!corgi'):
+                line = random.choice(open('config/corgi.txt', 'r').readlines())
+                await self.send_message(message.channel, line)
+                return
+            if message.content.startswith('!wolf'):
+                line = random.choice(open('config/foxes.txt', 'r').readlines())
+                await self.send_message(message.channel, "Wolves are nice. But foxes are better")
+                await self.send_message(message.channel, line)
+                return
+            if message.content.startswith('!meme'):
+                line = random.choice(open('config/memes.txt', 'r').readlines())
+                await self.audio.connect_to_channel(message.channel.name, message)
+                await self.audio.play("config/wavs/" + line.rstrip("\n") + '.wav')
+                return
+            if message.content.startswith('!vox'):
+                await self.audio.play_vox(message)
+                return
             if message.content.startswith('!help'):
                 msg = 'Available commands:'
-                msg += "\n    !adminwho - Displays current admins in-game"
-                msg += "\n    !ping - Displays a nice message."
+                msg += "\n    `!adminwho` - Displays current admins in-game"
+                msg += "\n    `!ping` - Displays a nice message."
+                msg += "\n    `!fox` - Displays cute pictures."
+                msg += "\n    `!meme` - Warning. Incredibly lame. Only works in General Voice channel."
+                msg += "\n    `!vox` - Works like the ais announcement system. Currently only works in public voice channel."
                 msg += "\nAdmin Commands(Must be used in the admin channel. Ill setup a better system later <-- Oisin.):"
-                msg += "\n    !ooc - Sends a OOC message."
+                msg += "\n    `!ooc` - Sends a OOC message."
                 msg += "\nSending a message in the #asay channel will broadcast it in-game"
                 msg = msg.format(message)
                 await self.send_message(message.channel, msg)
@@ -161,6 +190,6 @@ def is_admin_channel(channel):
         if channel.name == "admin" or channel.name == "important-admin":
             return 1
     return 0
-        
+
 bot = Bot()
 bot.run(email, password)
