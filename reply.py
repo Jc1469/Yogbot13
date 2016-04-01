@@ -8,8 +8,8 @@ from audio import AudioManager
 address = 'localhost'
 port = 25565
 key = 'password'
-email = 'codybrogamer@gmail.com'
-password = 'Djhalipad123'
+email = 'emailhere'
+password = 'password'
 
 if not discord.opus.is_loaded():
     discord.opus.load_opus('opus.dll')
