@@ -1,0 +1,41 @@
+ranks:
+  council:
+    inherits: staff
+    permissions:
+      - setperm
+      - reboot
+  headcoder:
+    inherits: council
+    permissions:
+  staff:
+    inherits: everybody
+    permissions:
+      - ticket
+      - ooc
+      - asay
+      - youtube
+      - reboot
+  everybody:
+    inherits: everyone
+    permissions:
+  everyone:
+    inherits:
+    permissions:
+      - hardy
+      - fox
+      - vox
+      - meme
+      - wolf
+      - ping
+      - adminwho
+  coder:
+    inherits: everybody
+    permissions:
+      - ticket
+      - ooc
+  seniorcoder:
+    inherits: coder
+    permissions:
+      - debug
+      - asay
+      - reboot
