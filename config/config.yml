@@ -1,3 +1,4 @@
 address: 'localhost'
 port: 25565
 key: 'default_pwds'
+token: 'token'

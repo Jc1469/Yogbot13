@@ -11,8 +11,7 @@ from urllib import parse
 address = 'localhost'
 port = 25565
 key = 'default_pwds'
-email = 'email_in_config'
-password = 'emai_password_in_config'
+token = 'token'
 
 if not discord.opus.is_loaded():
     discord.opus.load_opus('opus.dll')
@@ -28,13 +27,11 @@ def load_config():
     global address
     global port
     global key
-    global email
-    global password
+    global token
     address = config['address']
     port = config['port']
     key = config['key']
-    email = config['email']
-    password = config['password']
+    token = config['token']
 
 class Bot(discord.Client):
     def __init__(self):
@@ -270,4 +267,4 @@ def is_admin_channel(channel):
 load_config()
 
 bot = Bot()
-bot.run(email, password)
+bot.run(token)
