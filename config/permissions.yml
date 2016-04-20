@@ -28,6 +28,7 @@ ranks:
       - wolf
       - ping
       - adminwho
+      - corgi
   coder:
     inherits: everybody
     permissions:

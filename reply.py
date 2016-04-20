@@ -3,7 +3,7 @@ import socket
 import struct
 import random
 import yaml
-import time
+import os
 from audio import AudioManager
 from permissions_manager import PermissionsManager
 from urllib import parse
@@ -185,6 +185,8 @@ class Bot(discord.Client):
         print(self.user.id)
         print('------')
 
+    def on_socket_closed(self):
+        self.run(token)
 
 def decode_packet(packet):
     print(str(packet))
@@ -267,4 +269,8 @@ def is_admin_channel(channel):
 load_config()
 
 bot = Bot()
-bot.run(token)
+
+try:
+    bot.run(token)
+except Exception:
+    os.system('taskkill /F /PID %d' % os.getpid())
