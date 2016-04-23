@@ -4,6 +4,7 @@ import struct
 import random
 import yaml
 import os
+import json
 from audio import AudioManager
 from permissions_manager import PermissionsManager
 from urllib import parse
@@ -71,8 +72,18 @@ class Bot(discord.Client):
                 if not self.permissions.has_permissions(message.author, 'reboot'):
                     await self.send_message(message.channel, 'You dont have permissions to do that.')
                     return
-                ping_server(bytes("reboot=1&key={0}".format(key), "utf-8"))
-                await self.send_message(message.channel, 'Remote reboot attempted. Please note this bypass any logs and failsafes what would normaly take place in a normal reboot. This command is only intended to be used on server crash and may not work on 100% of crash cases.')
+                if len(words) == 1:
+                    await self.send_message(message.channel, "Available Reboot Options:\n    `!reboot soft` - Tells the server to restart.\n    `!reboot hard` - Forces the server to reboot by killing the daemon(Daemon must have a restart script for this to work).")
+                    return
+                if words[1] == "soft":
+                    ping_server(bytes("reboot=1&key={0}".format(key), "utf-8"))
+                    await self.send_message(message.channel, 'Soft reboot started.')
+                    return
+                if words[1] == "hard":
+                    os.system('taskkill /F /IM dreamdaemon.exe')
+                    await self.send_message(message.channel, 'Hard reboot started.')
+                    return
+                await self.send_message(message.channel, "I did not recognize that option. Try using `!reboot` to see the available options.")
             if words[0] == "!ticket":
                 ping_message = None
                 if len(words) == 1:
@@ -89,7 +100,7 @@ class Bot(discord.Client):
                     if len(words) < 4:
                         await self.send_message(message.channel, "You must specify a ticket as a NUMBER and give a reply message.")
                         return
-                    ping_message = bytes("ticket=1&action=reply&id={0}&admin={1}&response={2}&key={3}".format(words[2], message.author.name, words[3], key), "utf-8")
+                    ping_message = bytes("ticket=1&action=reply&id={0}&admin={1}&response={2}&key={3}".format(words[2], message.author.name, ' '.join(words[3:]), key), "utf-8")
                 if ping_message is None:
                     await self.send_message(message.channel, "Sorry, I did not recognize that ticket command. Try using `!ticket` to see the available ticket commands.")
                     return
@@ -240,21 +251,7 @@ def ping_server(question):
 
         response = decode_packet(bytes(data))
 
-        if response != None:
-            if isinstance(response, int) == True or (response.find('&') + response.find('=') == -2):
-                return response
-            else:
-                parsed_response = {}
-                for chunk in response.split('&'):
-                    chunk = chunk.replace("+", " ")
-                    dat = chunk.split('=')
-                    parsed_response[dat[0]] = ''
-                    if len(dat) == 2:
-                        parsed_response[dat[0]] = parse.unquote(dat[1])
-
-                    return parsed_response
-        else:
-            return None
+        return response
     except socket.timeout:
         return None
     except socket.error:
