@@ -218,7 +218,7 @@ def decode_packet(packet):
                 index = 5  # string index
                 indexend = index + size
 
-                string = packet[5:indexend].decode("utf-8")
+                string = packet[5:indexend].decode("ASCII")
                 string = string.replace('\x00', '')
 
                 return string
