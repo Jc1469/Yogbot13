@@ -218,7 +218,7 @@ def decode_packet(packet):
                 index = 5  # string index
                 indexend = index + size
 
-                string = packet[5:indexend].decode("ASCII")
+                string = packet[5:indexend].decode("Windows-1252")
                 string = string.replace('\x00', '')
 
                 return string
