@@ -86,6 +86,9 @@ class Bot(discord.Client):
                 await self.send_message(message.channel, "I did not recognize that option. Try using `!reboot` to see the available options.")
             if words[0] == "!ticket":
                 ping_message = None
+                if not self.permissions.has_permissions(message.author, 'ticket'):
+                    await self.send_message(message.channel, 'You dont have permissions to do that.')
+                    return
                 if len(words) == 1:
                     await self.send_message(message.channel, "Available Ticket Commands:\n    `!ticket list` - Lists current tickets.\n    `!ticket log (ticket_id)` - shows the log for the chosen ticket id.\n    `!ticket reply (ticket_id) (reply message)` - Sends a reply to the ticket.")
                     return
