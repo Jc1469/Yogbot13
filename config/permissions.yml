@@ -29,6 +29,7 @@ ranks:
       - ping
       - adminwho
       - corgi
+      - fennec
   coder:
     inherits: everybody
     permissions:

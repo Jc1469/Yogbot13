@@ -141,6 +141,13 @@ class Bot(discord.Client):
                 line = random.choice(open('config/foxes.txt', 'r').readlines())
                 await self.send_message(message.channel, line)
                 return
+            if message.content.startswith('!fennec'):
+                if not self.permissions.has_permissions(message.author, 'fennec'):
+                    await self.send_message(message.channel, 'You dont have permissions to do that.')
+                    return
+                line = random.choice(open('config/fennecs.txt', 'r').readlines())
+                await self.send_message(message.channel, line)
+                return
             if message.content.startswith('!hardy'):
                 if not self.permissions.has_permissions(message.author, 'hardy'):
                     await self.send_message(message.channel, 'You dont have permissions to do that.')
