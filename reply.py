@@ -9,7 +9,6 @@ from audio import AudioManager
 from permissions_manager import PermissionsManager
 from urllib import parse
 from chatterbot import ChatBot
-from chatterbot.training.trainers import ChatterBotCorpusTrainer
 
 
 address = 'localhost'
@@ -47,8 +46,6 @@ class Bot(discord.Client):
         self.permissions = PermissionsManager()
         self.database_connection = None
         self.cbot = ChatBot("Yogbot", storage_adapter="chatterbot.adapters.storage.JsonDatabaseAdapter", database="./config/database.json",logic_adapters=["chatterbot.adapters.logic.MathematicalEvaluation","chatterbot.adapters.logic.TimeLogicAdapter","chatterbot.adapters.logic.ClosestMeaningAdapter"],input_adapter="chatterbot.adapters.input.VariableInputTypeAdapter",output_adapter="chatterbot.adapters.output.OutputFormatAdapter",format='text')
-        self.cbot.set_trainer(ChatterBotCorpusTrainer)
-        self.cbot.train("chatterbot.corpus.english")
     def connect_to_database(self):
         return 1
 
