@@ -9,7 +9,6 @@ from audio import AudioManager
 from permissions_manager import PermissionsManager
 from urllib import parse
 from chatterbot import ChatBot
-from chatterbot.training.trainers import ChatterBotCorpusTrainer
 
 address = 'localhost'
 port = 25565
