@@ -46,7 +46,7 @@ class Bot(discord.Client):
         self.audio = AudioManager(self, 'test name')
         self.permissions = PermissionsManager()
         self.database_connection = None
-        self.cbot = ChatBot("Yogbot", storage_adapter="chatterbot.adapters.storage.JsonDatabaseAdapter", database="./config/database.json",logic_adapters=["chatterbot.adapters.logic.MathematicalEvaluation","chatterbot.adapters.logic.TimeLogicAdapter","chatterbot.adapters.logic.ClosestMatchAdapter"],input_adapter="chatterbot.adapters.input.VariableInputTypeAdapter",output_adapter="chatterbot.adapters.output.OutputFormatAdapter",format='text')
+        self.cbot = ChatBot("Yogbot", storage_adapter="chatterbot.adapters.storage.JsonDatabaseAdapter", database="./config/database.json",logic_adapters=["chatterbot.adapters.logic.MathematicalEvaluation","chatterbot.adapters.logic.TimeLogicAdapter","chatterbot.adapters.logic.ClosestMeaningAdapter"],input_adapter="chatterbot.adapters.input.VariableInputTypeAdapter",output_adapter="chatterbot.adapters.output.OutputFormatAdapter",format='text')
         chatbot.set_trainer(ChatterBotCorpusTrainer)
         chatbot.train("chatterbot.corpus.english")
     def connect_to_database(self):
