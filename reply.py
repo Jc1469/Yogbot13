@@ -61,7 +61,7 @@ class Bot(discord.Client):
                 ping_message = bytes("asay={0}&admin={1}&key={2}".format(message.content, message.author.name, key), "utf-8")
                 ping_server(ping_message)
             if message.channel.name == "talk-with-bot":
-                response = get_response(message.content)
+                response = cbot.get_response(message.content)
                 await self.send_message(message.channel, response)
         if words[0][0] == "!":
             if message.content.startswith('!ooc'):
