@@ -8,6 +8,8 @@ import json
 from audio import AudioManager
 from permissions_manager import PermissionsManager
 from urllib import parse
+from chatterbot import ChatBot
+from chatterbot.training.trainers import ChatterBotCorpusTrainer
 
 address = 'localhost'
 port = 25565
@@ -43,6 +45,7 @@ class Bot(discord.Client):
         self.audio = AudioManager(self, 'test name')
         self.permissions = PermissionsManager()
         self.database_connection = None
+        self.cbot = ChatBot("Yogbot", storage_adapter="chatterbot.adapters.storage.JsonDatabaseAdapter", database="./config/database.json",logic_adapters=["chatterbot.adapters.logic.MathematicalEvaluation","chatterbot.adapters.logic.TimeLogicAdapter","chatterbot.adapters.logic.ClosestMatchAdapter"],input_adapter="chatterbot.adapters.input.VariableInputTypeAdapter",output_adapter="chatterbot.adapters.output.OutputFormatAdapter",format='text')
 
     def connect_to_database(self):
         return 1
@@ -58,6 +61,9 @@ class Bot(discord.Client):
             if message.channel.name == "asay":
                 ping_message = bytes("asay={0}&admin={1}&key={2}".format(message.content, message.author.name, key), "utf-8")
                 ping_server(ping_message)
+            if message.channel.name == "talk-with-bot":
+                response = get_response(message.content)
+                await self.send_message(response)
         if words[0][0] == "!":
             if message.content.startswith('!ooc'):
                 msg = 'Successfully sent OOC message.'
