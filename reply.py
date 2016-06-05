@@ -99,11 +99,9 @@ class Bot(discord.Client):
                         await self.send_message(message.channel, "You must specify a ticket as a NUMBER.")
                         return
                     ping_message = bytes("ticket=1&action=log&id={0}&key={1}".format(words[2], key), "utf-8")
-                if words[1] == 'reply':
-                    if len(words) < 4:
-                        await self.send_message(message.channel, "You must specify a ticket as a NUMBER and give a reply message.")
-                        return
-                    ping_message = bytes("ticket=1&action=reply&id={0}&admin={1}&response={2}&key={3}".format(words[2], message.author.name, ' '.join(words[3:]), key), "utf-8")
+                if words[1] == 'reply':    
+                    await self.send_message("This feature has been removed.")
+                    return
                 if ping_message is None:
                     await self.send_message(message.channel, "Sorry, I did not recognize that ticket command. Try using `!ticket` to see the available ticket commands.")
                     return
