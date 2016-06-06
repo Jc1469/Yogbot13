@@ -1,0 +1,60 @@
+<aiml version="1.0.1" encoding="UTF-8">
+    <category>
+
+        <pattern>LOAD AIML FILES</pattern>
+
+        <template>
+			<learn>AIML/Adverbs.aiml</learn>
+            <learn>AIML/Atomic.aiml</learn>
+			<learn>AIML/astrology.aiml</learn>
+			<learn>AIML/bananswer.aiml</learn>
+			<learn>AIML/biograpghy.aiml</learn>
+			<learn>AIML/bot.aiml</learn>
+			<learn>AIML/bot_profile.aiml</learn>
+			<learn>AIML/client.aiml</learn>
+			<learn>AIML/client_profile.aiml</learn>
+			<learn>AIML/computers.aiml</learn>
+			<learn>AIML/continuation.aiml</learn>
+			<learn>AIML/date.aiml</learn>
+			<learn>AIML/default.aiml</learn>
+			<learn>AIML/drugs.aiml</learn>
+			<learn>AIML/emotion.aiml</learn>
+			<learn>AIML/food.aiml</learn>
+			<learn>AIML/geography.aiml</learn>
+			<learn>AIML/gossip.aiml</learn>
+			<learn>AIML/history.aiml</learn>
+			<learn>AIML/humour.aiml</learn>
+			<learn>AIML/imponderables.aiml</learn>
+			<learn>AIML/inquiry.aiml</learn>
+			<learn>AIML/interjection.aiml</learn>
+			<learn>AIML/iu.aiml</learn>
+			<learn>AIML/knowledge.aiml</learn>
+			<learn>AIML/literature.aiml</learn>
+			<learn>AIML/loebner10.aiml</learn>
+			<learn>AIML/money.aiml</learn>
+			<learn>AIML/movies.aiml</learn>
+			<learn>AIML/music.aiml</learn>
+			<learn>AIML/numbers.aiml</learn>
+			<learn>AIML/personality.aiml</learn>
+			<learn>AIML/phone.aiml</learn>
+			<learn>AIML/pickup.aiml</learn>
+			<learn>AIML/politics.aiml</learn>
+			<learn>AIML/primeminister.aiml</learn>
+			<learn>AIML/primitive-math.aiml</learn>
+			<learn>AIML/psychology.aiml</learn>
+			<learn>AIML/reduction.names.aiml</learn>
+			<learn>AIML/religion.aiml</learn>
+			<learn>AIML/science.aiml</learn>
+			<learn>AIML/sex.aiml</learn>
+			<learn>AIML/stack.aiml</learn>
+			<learn>AIML/xfind.aiml</learn>
+			<learn>AIML/stories.aiml</learn>
+			<learn>AIML/that.aiml</learn>
+			<learn>AIML/wallace.aiml</learn>
+			<learn>AIML/tictactoe.aiml</learn>
+			<learn>AIML/tictactoe.aiml</learn>
+        </template>
+		
+    </category>
+
+</aiml>
