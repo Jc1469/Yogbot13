@@ -27,10 +27,8 @@
 			<learn>AIML/imponderables.aiml</learn>
 			<learn>AIML/inquiry.aiml</learn>
 			<learn>AIML/interjection.aiml</learn>
-			<learn>AIML/iu.aiml</learn>
 			<learn>AIML/knowledge.aiml</learn>
 			<learn>AIML/literature.aiml</learn>
-			<learn>AIML/loebner10.aiml</learn>
 			<learn>AIML/money.aiml</learn>
 			<learn>AIML/movies.aiml</learn>
 			<learn>AIML/music.aiml</learn>
@@ -42,7 +40,6 @@
 			<learn>AIML/primeminister.aiml</learn>
 			<learn>AIML/primitive-math.aiml</learn>
 			<learn>AIML/psychology.aiml</learn>
-			<learn>AIML/reduction.names.aiml</learn>
 			<learn>AIML/religion.aiml</learn>
 			<learn>AIML/science.aiml</learn>
 			<learn>AIML/sex.aiml</learn>
@@ -51,8 +48,10 @@
 			<learn>AIML/stories.aiml</learn>
 			<learn>AIML/that.aiml</learn>
 			<learn>AIML/wallace.aiml</learn>
-			<learn>AIML/tictactoe.aiml</learn>
-			<learn>AIML/tictactoe.aiml</learn>
+			<learn>AIML/jokes.aiml</learn>
+			<learn>AIML/learn.aiml</learn>
+			<learn>AIML/shutup.aiml</learn>
+			<learn>AIML/yomamma.aiml</learn>
         </template>
 		
     </category>
