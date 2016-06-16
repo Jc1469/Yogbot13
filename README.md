@@ -1,5 +1,5 @@
 # Yogbot13
-The Python bot what powers Discord commands.
+The Python bot that powers Discord commands.
 
 # Installation Instructions
 Clone repo with `git clone https://github.com/yogstation13/Yogbot13.git`
